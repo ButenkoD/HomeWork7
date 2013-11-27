@@ -1,0 +1,3 @@
+butenko_home_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ButenkoHomeBundle:Default:index }
