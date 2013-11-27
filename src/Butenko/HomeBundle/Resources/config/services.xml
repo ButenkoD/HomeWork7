@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <parameters>
+        <parameter key="my_service.class">Butenko\HomeBundle\Service\MyService</parameter>
+        <parameter key="my_name">Jesus</parameter>
+        <parameter key="my_filesystem.class">Symfony\Component\Filesystem\Filesystem</parameter>
+        <parameter key="my_another_service.class">Butenko\HomeBundle\Service\MyAnotherService</parameter>
+        <parameter key="my_session.class">Symfony\Component\HttpFoundation\Session\Session</parameter>
+
+    </parameters>
+
+    <services>
+        <service id="my_filesystem" class="%my_filesystem.class%">
+        </service>
+
+        <service id="my_service" class="%my_service.class%">
+            <argument>%my_name%</argument>
+            <argument type="service" id="my_filesystem"></argument>
+        </service>
+
+        <service id="my_session" class="%my_session.class%">
+        </service>
+
+        <service id="my_another_service" class="%my_another_service.class%">
+            <call method="setSession">
+                <argument type="service" id="my_session"/>
+            </call>
+        </service>
+    </services>
+
+</container>
